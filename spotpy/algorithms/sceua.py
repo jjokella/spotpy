@@ -149,6 +149,9 @@ class sceua(_algorithm):
             Number of loops executed at max in this function call
         """
         self.set_repetiton(repetitions)
+        # jo.keller: Do not execute more of "sample" for worker processes
+        if self.repeat.is_worker():
+            return
         # Initialize SCE parameters:
         self.ngs = ngs
         randompar = self.parameter()['random']
