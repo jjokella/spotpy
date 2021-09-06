@@ -14,6 +14,8 @@ class ForEach(object):
     def __init__(self,process):
         self.process = process
         self.phase=None
+    def is_worker(self):
+        return False
     def is_idle(self):
         return True
     def terminate(self):
