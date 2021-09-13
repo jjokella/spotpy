@@ -150,11 +150,12 @@ class ForEach(object):
             # jo.keller: Return instead of "exit", for running multiple
             # "sample()" functions in one script. For "exit", worker processes
             # are removed and not available  for additional calls
-            # of "sample()".
-            # DANGER: This works only for sceua()! For other algorithms
+            # of "sample()" in a wrapping function or script.
+            #
+            # DANGER: This is tested only for sceua()! For other algorithms
             # unwanted behavior may appear (most likely all worker
             # processes will execute the full algorithm that is only meant to
-            # be executed by the main process.)
+            # be executed by the main process)
             return
 
     def __send(self, jobiter):
