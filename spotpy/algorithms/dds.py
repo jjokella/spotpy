@@ -271,6 +271,9 @@ class dds(_algorithm):
         debug_results = []
 
         self.set_repetiton(repetitions)
+        # jo.keller: Do not execute more of "sample" for worker processes
+        if self.repeat.is_worker():
+            return
         self.min_bound, self.max_bound = self.parameter(
         )['minbound'], self.parameter()['maxbound']
         print('Starting the DDS algotrithm with '+str(repetitions)+ ' repetitions...')

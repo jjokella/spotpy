@@ -273,6 +273,9 @@ class NSGAII(_algorithm):
         self.n_pop = n_pop
         self.generations= generations
         self.set_repetiton(self.generations*self.n_pop)
+        # jo.keller: Do not execute more of "sample" for worker processes
+        if self.repeat.is_worker():
+            return
         self.skip_duplicates = True # False does not work yet
 
         Pt = np.vstack([self.parameter()['random'] for i in range(self.n_pop)])

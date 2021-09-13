@@ -62,6 +62,9 @@ class mc(_algorithm):
             Maximum number of runs.
         """
         self.set_repetiton(repetitions)
+        # jo.keller: Do not execute more of "sample" for worker processes
+        if self.repeat.is_worker():
+            return
         print('Starting the MC algorithm with {} repetitions...'.format(repetitions))
         # A generator that produces parametersets if called
         param_generator = ((rep, self.parameter()['random'])

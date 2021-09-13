@@ -199,6 +199,9 @@ class fast(_algorithm):
             Maximum number of runs.  
         """
         self.set_repetiton(repetitions)
+        # jo.keller: Do not execute more of "sample" for worker processes
+        if self.repeat.is_worker():
+            return
         print('Starting the FAST algotrithm with '+str(repetitions)+ ' repetitions...')
         print('Creating FAST Matrix')
         # Get the names of the parameters to analyse

@@ -65,6 +65,9 @@ class mle(_algorithm):
 
     def sample(self, repetitions):
         self.set_repetiton(repetitions)
+        # jo.keller: Do not execute more of "sample" for worker processes
+        if self.repeat.is_worker():
+            return
         print('Starting the MLE algotrithm with '+str(repetitions)+ ' repetitions...')
         # Define stepsize of MLE
         stepsizes = self.parameter()['step']  # array of stepsizes

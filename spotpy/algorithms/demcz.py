@@ -135,6 +135,9 @@ class demcz(_algorithm):
         """
         
         self.set_repetiton(repetitions)
+        # jo.keller: Do not execute more of "sample" for worker processes
+        if self.repeat.is_worker():
+            return
         print('Starting the DEMCz algotrithm with '+str(repetitions)+ ' repetitions...')
 
         self.min_bound, self.max_bound = self.parameter(

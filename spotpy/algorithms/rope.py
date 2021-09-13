@@ -96,6 +96,9 @@ class rope(_algorithm):
         #Subsets < 5 führt manchmal zu Absturz
         print('Starting the ROPE algotrithm with '+str(repetitions)+ ' repetitions...')
         self.set_repetiton(repetitions)
+        # jo.keller: Do not execute more of "sample" for worker processes
+        if self.repeat.is_worker():
+            return
 
         if repetitions_first_run is None:
             #Take the first have of the repetitions as burn-in

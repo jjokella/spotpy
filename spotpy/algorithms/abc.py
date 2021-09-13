@@ -79,6 +79,9 @@ class abc(_algorithm):
             sets the limit
         """
         self.set_repetiton(repetitions)
+        # jo.keller: Do not execute more of "sample" for worker processes
+        if self.repeat.is_worker():
+            return
         print('Starting the ABC algotrithm with '+str(repetitions)+ ' repetitions...')
         # Initialize ABC parameters:
         randompar = self.parameter()['random']

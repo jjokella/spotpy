@@ -62,6 +62,9 @@ class list_sampler(_algorithm):
         if not repetitions:
             repetitions=len(parameters)
         self.set_repetiton(repetitions)
+        # jo.keller: Do not execute more of "sample" for worker processes
+        if self.repeat.is_worker():
+            return
         
         # Initialization
         print('Starting the List sampler with '+str(repetitions)+ ' repetitions...')

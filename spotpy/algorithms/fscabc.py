@@ -87,6 +87,9 @@ class fscabc(_algorithm):
             sets the limit for scout bee phase
         """
         self.set_repetiton(repetitions)
+        # jo.keller: Do not execute more of "sample" for worker processes
+        if self.repeat.is_worker():
+            return
         print('Starting the FSCABC algotrithm with '+str(repetitions)+ ' repetitions...')
         # Initialize FSCABC parameters:
         parset = self.parameter()

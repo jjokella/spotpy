@@ -78,6 +78,9 @@ class sa(_algorithm):
             Maximum number of runs.  
         """
         self.set_repetiton(repetitions)
+        # jo.keller: Do not execute more of "sample" for worker processes
+        if self.repeat.is_worker():
+            return
         print('Starting the SA algotrithm with '+str(repetitions)+ ' repetitions...')
         self.min_bound, self.max_bound = self.parameter(
         )['minbound'], self.parameter()['maxbound']

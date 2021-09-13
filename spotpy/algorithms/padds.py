@@ -188,6 +188,9 @@ class padds(_algorithm):
         print('Starting the PADDS algotrithm with ' + str(repetitions) + ' repetitions...')
         print('WARNING: THE PADDS algorithm as implemented in SPOTPY is in an beta stage and not ready for production use!')
         self.set_repetiton(repetitions)
+        # jo.keller: Do not execute more of "sample" for worker processes
+        if self.repeat.is_worker():
+            return
         self.number_of_parameters = len(self.best_value.parameters) # number_of_parameters is the amount of parameters
 
         if metric == "hvc":

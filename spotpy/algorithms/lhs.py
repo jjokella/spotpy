@@ -62,6 +62,9 @@ class lhs(_algorithm):
             maximum number of function evaluations allowed during optimization
         """
         self.set_repetiton(repetitions)
+        # jo.keller: Do not execute more of "sample" for worker processes
+        if self.repeat.is_worker():
+            return
         print('Starting the LHS algotrithm with '+str(repetitions)+ ' repetitions...')
         print('Creating LatinHyperCube Matrix')
         # Get the names of the parameters to analyse
