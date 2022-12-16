@@ -123,26 +123,34 @@ class ForEach(object):
         :return: Nothing, calls exit()
         """
         try:
+            print("Rnk ", self.rank, ", __wait, Asserting being worker")
             assert self.is_worker()
             while True:
                 # Wait for a message
+                print("Rnk ", self.rank, ", __wait, Wait for a message")
                 obj = self.comm.recv(source=0, tag=tag.job)
                 # Handle messages
+                print("Rnk ", self.rank, ", __wait, Handle messages")
                 if type(obj) is StopIteration:
                     # Stop message
+                    print("Rnk ", self.rank, ", __wait, Stop message")
                     break
                 elif type(obj) is PhaseChange:
                     # Phase change
+                    print("Rnk ", self.rank, ", __wait, Phase change")
                     self.phase = obj.phase
                 else:  # obj is a job for self.process
                     # Send the object back for processing it
+                    print("Rnk ", self.rank, ", __wait, self.process")
                     res = self.process(obj)
+                    print("Rnk ", self.rank, ", __wait, Send the object back")
                     self.comm.send(res, dest=0, tag=tag.answer)
 
             if callable(self.on_worker_terminate):
                 self.on_worker_terminate()
 
         finally:
+            print("Rnk ", self.rank, ", __wait, Exiting/Returning")
             # exit()
 
             # jo.keller: Return instead of "exit", for running multiple

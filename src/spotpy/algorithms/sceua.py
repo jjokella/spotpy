@@ -176,6 +176,7 @@ class sceua(_algorithm):
         self.set_repetiton(repetitions)
         # jo.keller: Do not execute more of "sample" for worker processes
         if self.repeat.is_worker():
+            print("Rnk ", self.repeat.rank, ", Before worker return")
             return
         # Initialize SCE parameters:
         self.ngs = ngs

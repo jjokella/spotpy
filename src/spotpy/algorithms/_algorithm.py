@@ -358,7 +358,9 @@ class _algorithm(object):
         # but the worker processes are going to wait for jobs.
         # Hence the workers will only receive parameters for the
         # simulate function, new calculation phases and the termination
+        print("Rnk ", self.repeat.rank, ", Before self.repeat.start")
         self.repeat.start()
+        print("Rnk ", self.repeat.rank, ", After self.repeat.start")
 
     def final_call(self):
         self.repeat.terminate()
