@@ -329,8 +329,9 @@ class _algorithm(object):
         # to other functions. This is introduced for sceua to differentiate between burn in and
         # the normal work on the chains
         self.repeat = ForEach(self.simulate)
-        # Print Random seed for each rank
-        print("Rnk ", self.repeat.rank, ", Random number seed (random_state): ", random_state)
+        # MPI: Print Random seed for each rank
+        if parallel == "mpi":
+            print("Rnk ", self.repeat.rank, ", Random number seed (random_state): ", random_state)
 
 
         # method "save" needs to know whether objective function result is list or float, default is float
