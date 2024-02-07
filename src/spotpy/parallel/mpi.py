@@ -56,13 +56,13 @@ class ForEach(object):
     def __repr__(self):
         return "ForEach(rank=%i/%i,phase=%s)" % (self.rank, self.size, self.phase)
 
-    def __init__(self, process):
+    def __init__(self, process, comm=MPI.COMM_WORLD):
         """
         Creates a repetition around a callable
 
         :param process: A callable to process the data
         """
-        self.comm = MPI.COMM_WORLD
+        self.comm = comm
         self.size = self.comm.Get_size()
         if self.size <= 1:
             raise RuntimeError("Need at least two processes for parallelization")

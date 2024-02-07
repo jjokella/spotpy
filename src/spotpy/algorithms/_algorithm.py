@@ -241,6 +241,7 @@ class _algorithm(object):
         random_state=None,
         optimization_direction="grid",
         algorithm_name="",
+        comm=None,
     ):
 
         # Initialize the user defined setup class
@@ -262,6 +263,8 @@ class _algorithm(object):
         self.algorithm_name = algorithm_name
         # Create a type to hold the parameter values using a namedtuple
         self.partype = parameter.ParameterSet(param_info)
+
+        self.comm = comm
 
         self.evaluation = self.setup.evaluation()
         self.save_sim = save_sim
@@ -328,7 +331,10 @@ class _algorithm(object):
         # setphase function. The simulate method can check the current phase and dispatch work
         # to other functions. This is introduced for sceua to differentiate between burn in and
         # the normal work on the chains
-        self.repeat = ForEach(self.simulate)
+        if parallel == "mpi" and self.comm is not None:
+            self.repeat = ForEach(self.simulate, comm=comm)
+        else:
+            self.repeat = ForEach(self.simulate)
 
         # method "save" needs to know whether objective function result is list or float, default is float
         self.like_struct_typ = type(1.1)
