@@ -31,6 +31,11 @@ Changes for SPOTPY-gprMax
 - SCEUA input `useoptguess`. Mimics Matlab behavior, where the optimal
   guess is used in the initial / "burn-in" population of SCEUA.
 
+- MPI: possibility for input MPI-communicator that replaces
+  `MPI.COMM_WORLD`. MPI-communicator is introduced as input `comm` to
+  class `_algorithm`. This feature is needed for Two-level-MPI
+  (parallel SPOTPY, as well as parallel forward model)
+
 Purpose
 =================
 
