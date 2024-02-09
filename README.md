@@ -28,6 +28,8 @@ Changes for SPOTPY-gprMax
   function. This way, more than one `sample` call can be carried out
   by SPOTPY-gprMax
 
+- SCEUA input `useoptguess`. Mimics Matlab behavior, where the optimal
+  guess is used in the initial / "burn-in" population of SCEUA.
 
 Purpose
 =================
