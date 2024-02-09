@@ -22,6 +22,15 @@ A Statistical Parameter Optimization Tool for Python
 
 
 
+Changes for SPOTPY-gprMax
+=========================
+- worker processes `return` and do not `exit` in `sample`
+  function. This way, more than one `sample` call can be carried out
+  by SPOTPY-gprMax
+
+- SCEUA input `useoptguess`. Mimics Matlab behavior, where the optimal
+  guess is used in the initial / "burn-in" population of SCEUA.
+
 Purpose
 =================
 
