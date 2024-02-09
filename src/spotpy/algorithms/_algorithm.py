@@ -470,7 +470,6 @@ class _algorithm(object):
         negativlike=False,
         block_print=False,
     ):  # TODO: rep not necessaray
-
         params = self.update_params(params)
         if negativlike is True:
             like = -self.getfitness(simulation=simulation, params=params)
@@ -490,7 +489,9 @@ class _algorithm(object):
             try:
                 iter(like)
                 return like[0]
-            except TypeError:  # Happens if iter(like) fails, i.e. if like is just one value
+            except (
+                TypeError
+            ):  # Happens if iter(like) fails, i.e. if like is just one value
                 return like
 
     def getfitness(self, simulation, params):
@@ -505,7 +506,9 @@ class _algorithm(object):
                 params=(params, self.parnames),
             )
 
-        except TypeError:  # Happens if the user does not allow to pass parameter in the spot_setup.objectivefunction
+        except (
+            TypeError
+        ):  # Happens if the user does not allow to pass parameter in the spot_setup.objectivefunction
             # print('Not using parameters in fitness function')
             return self.setup.objectivefunction(
                 evaluation=self.evaluation, simulation=simulation
