@@ -152,6 +152,7 @@ class sceua(_algorithm):
         pcento=0.0000001,
         peps=0.0000001,
         max_loop_inc=None,
+        useoptguess=False,
     ):
         """
         Samples from parameter distributions using SCE-UA (Duan, 2004),
@@ -172,6 +173,8 @@ class sceua(_algorithm):
             Value of the normalized geometric range of the parameters in the population below which convergence is deemed achieved.
         max_loop_inc: int
             Number of loops executed at max in this function call
+        useoptguess: boolean
+            Switch for inserting the optimal parameter guess in initial population
         """
         self.set_repetiton(repetitions)
         # jo.keller: Do not execute more of "sample" for worker processes
@@ -204,7 +207,7 @@ class sceua(_algorithm):
 
         elif self.breakpoint is None or self.breakpoint == "write":
             # Create an initial population to fill array x(npt,self.self.nopt):
-            x = self._sampleinputmatrix(npt, self.nopt)
+            x = self._sampleinputmatrix(npt, self.nopt, useoptguess)
             nloop = 0
             icall = 0
             xf = np.zeros(npt)
@@ -516,9 +519,9 @@ class sceua(_algorithm):
         # END OF CCE
         return snew, fnew, simulations, discarded_runs
 
-    def _sampleinputmatrix(self, nrows, npars):
+    def _sampleinputmatrix(self, nrows, npars, useoptguess=False):
         """
-        Create inputparameter matrix for nrows simualtions,
+        Create inputparameter matrix for nrows simulations,
         for npars with bounds ub and lb (np.array from same size)
         distname gives the initial sampling ditribution (currently one for all parameters)
 
@@ -527,4 +530,8 @@ class sceua(_algorithm):
         x = np.zeros((nrows, npars))
         for i in range(nrows):
             x[i, :] = self.parameter()["random"]
+
+        if useoptguess:
+            x[0, :] = self.parameter()["optguess"]
+
         return x
